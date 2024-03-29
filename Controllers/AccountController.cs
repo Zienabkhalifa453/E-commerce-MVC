@@ -11,9 +11,9 @@ namespace E_commerce.Controllers
         UserManager<ApplicationUser> _userManager;
         SignInManager<ApplicationUser> _signInManager;
         IRepository<ApplicationUser> _repository;
-        IRepository<Product> _productRepository;
+      
      
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,IRepository<ApplicationUser>appRpo,IRepository<Product>Repo)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,IRepository<ApplicationUser>appRpo)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -29,13 +29,6 @@ namespace E_commerce.Controllers
         {
             return View();
         }
-
-
-
-
-
-
-
 
 
         [HttpGet]

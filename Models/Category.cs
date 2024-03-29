@@ -8,6 +8,7 @@ namespace E_commerce.Models
         public string Name { get; set; }
         public bool IsDeleted { get; set; } = false;
         public ICollection<Product>? products { get; set; }
+        public string imageURL { get; set; }
 
     }
 }

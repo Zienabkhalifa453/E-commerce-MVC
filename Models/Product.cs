@@ -1,4 +1,4 @@
-﻿using E_commerce.Repository;
+﻿using E_commerce_MVC.interfaces;
 using E_commerce_MVC.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
