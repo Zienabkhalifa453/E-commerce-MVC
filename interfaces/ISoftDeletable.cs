@@ -1,10 +1,7 @@
-﻿namespace E_commerce.Repository
+﻿namespace E_commerce_MVC.interfaces
 {
     public interface ISoftDeletable
     {
-
-
-
         bool IsDeleted { get; set; }
     }
 }

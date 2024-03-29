@@ -1,4 +1,5 @@
 ﻿using E_commerce.Repository;
+using E_commerce_MVC.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace E_commerce.Models
@@ -18,5 +19,7 @@ namespace E_commerce.Models
         [ForeignKey("category")]
         public int Category_Id { get; set; }
         public Category category { get; set; }
+
+        public List<Comments>? comments { get; set; }
     }
 }

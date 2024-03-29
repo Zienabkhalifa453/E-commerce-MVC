@@ -1,4 +1,4 @@
-﻿using E_commerce.Repository;
+﻿using E_commerce_MVC.interfaces;
 
 namespace E_commerce.Models
 {

@@ -1,4 +1,5 @@
 ﻿using E_commerce.Models;
+using E_commerce_MVC.interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 
@@ -21,6 +22,8 @@ namespace E_commerce.Repository
         }
         public void delete(T entity)
         {
+
+            
            if(entity is ISoftDeletable item)
             {
                 item.IsDeleted = true;
@@ -35,6 +38,7 @@ namespace E_commerce.Repository
         }
         public ICollection<T> GetAll()
         {
+            
             return context.Set<T>().ToList();
         }
 
@@ -44,6 +48,9 @@ namespace E_commerce.Repository
         {
             return context.Set<T>().FirstOrDefault(predicate);
         }
+
+  
+
 
         public int save()
         {
