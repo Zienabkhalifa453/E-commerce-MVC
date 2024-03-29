@@ -14,8 +14,8 @@ namespace E_commerce.Models
         public string Zip_Code { get; set; }
         public bool IsDeleted { get; set; } = false;
         [ForeignKey("customer")]
-        public int Customer_Id { get; set; }
-        public customer customer { get; set; }
+        public string Customer_Id { get; set; }
+        public ApplicationUser customer { get; set; }
         public ICollection<Order>? orders { get; set; }
 
     }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_commerce_MVC.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240329192259_db")]
+    [Migration("20240329201022_db")]
     partial class db
     {
         /// <inheritdoc />
@@ -46,6 +46,9 @@ namespace E_commerce_MVC.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
@@ -102,8 +105,9 @@ namespace E_commerce_MVC.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Customer_Id")
-                        .HasColumnType("int");
+                    b.Property<string>("Customer_Id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -120,7 +124,7 @@ namespace E_commerce_MVC.Migrations
 
                     b.HasIndex("Product_Id");
 
-                    b.ToTable("cart");
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("E_commerce.Models.Category", b =>
@@ -140,7 +144,7 @@ namespace E_commerce_MVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("category");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("E_commerce.Models.Order", b =>
@@ -151,8 +155,9 @@ namespace E_commerce_MVC.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Customer_Id")
-                        .HasColumnType("int");
+                    b.Property<string>("Customer_Id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -177,7 +182,7 @@ namespace E_commerce_MVC.Migrations
 
                     b.HasIndex("Shipment_Id");
 
-                    b.ToTable("order");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("E_commerce.Models.OrderItem", b =>
@@ -209,7 +214,7 @@ namespace E_commerce_MVC.Migrations
 
                     b.HasIndex("Product_Id");
 
-                    b.ToTable("orderItem");
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("E_commerce.Models.Payment", b =>
@@ -223,8 +228,9 @@ namespace E_commerce_MVC.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
-                    b.Property<int>("Customer_Id")
-                        .HasColumnType("int");
+                    b.Property<string>("Customer_Id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -240,7 +246,7 @@ namespace E_commerce_MVC.Migrations
 
                     b.HasIndex("Customer_Id");
 
-                    b.ToTable("payment");
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("E_commerce.Models.Product", b =>
@@ -279,7 +285,7 @@ namespace E_commerce_MVC.Migrations
 
                     b.HasIndex("Category_Id");
 
-                    b.ToTable("product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("E_commerce.Models.Shipment", b =>
@@ -302,8 +308,9 @@ namespace E_commerce_MVC.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Customer_Id")
-                        .HasColumnType("int");
+                    b.Property<string>("Customer_Id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -323,7 +330,7 @@ namespace E_commerce_MVC.Migrations
 
                     b.HasIndex("Customer_Id");
 
-                    b.ToTable("shipment");
+                    b.ToTable("Shipments");
                 });
 
             modelBuilder.Entity("E_commerce.Models.WishList", b =>
@@ -334,8 +341,9 @@ namespace E_commerce_MVC.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Customer_Id")
-                        .HasColumnType("int");
+                    b.Property<string>("Customer_Id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -349,29 +357,7 @@ namespace E_commerce_MVC.Migrations
 
                     b.HasIndex("Product_Id");
 
-                    b.ToTable("wishList");
-                });
-
-            modelBuilder.Entity("E_commerce.Models.customer", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("customers");
+                    b.ToTable("WishLists");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -509,10 +495,10 @@ namespace E_commerce_MVC.Migrations
 
             modelBuilder.Entity("E_commerce.Models.Cart", b =>
                 {
-                    b.HasOne("E_commerce.Models.customer", "customer")
+                    b.HasOne("E_commerce.Models.ApplicationUser", "customer")
                         .WithMany("carts")
                         .HasForeignKey("Customer_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("E_commerce.Models.Product", "product")
@@ -528,7 +514,7 @@ namespace E_commerce_MVC.Migrations
 
             modelBuilder.Entity("E_commerce.Models.Order", b =>
                 {
-                    b.HasOne("E_commerce.Models.customer", "customer")
+                    b.HasOne("E_commerce.Models.ApplicationUser", "customer")
                         .WithMany("orders")
                         .HasForeignKey("Customer_Id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -574,7 +560,7 @@ namespace E_commerce_MVC.Migrations
 
             modelBuilder.Entity("E_commerce.Models.Payment", b =>
                 {
-                    b.HasOne("E_commerce.Models.customer", "customer")
+                    b.HasOne("E_commerce.Models.ApplicationUser", "customer")
                         .WithMany("payments")
                         .HasForeignKey("Customer_Id")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -588,7 +574,7 @@ namespace E_commerce_MVC.Migrations
                     b.HasOne("E_commerce.Models.Category", "category")
                         .WithMany("products")
                         .HasForeignKey("Category_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("category");
@@ -596,7 +582,7 @@ namespace E_commerce_MVC.Migrations
 
             modelBuilder.Entity("E_commerce.Models.Shipment", b =>
                 {
-                    b.HasOne("E_commerce.Models.customer", "customer")
+                    b.HasOne("E_commerce.Models.ApplicationUser", "customer")
                         .WithMany("shipments")
                         .HasForeignKey("Customer_Id")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -607,10 +593,10 @@ namespace E_commerce_MVC.Migrations
 
             modelBuilder.Entity("E_commerce.Models.WishList", b =>
                 {
-                    b.HasOne("E_commerce.Models.customer", "customer")
+                    b.HasOne("E_commerce.Models.ApplicationUser", "customer")
                         .WithMany("wishLists")
                         .HasForeignKey("Customer_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("E_commerce.Models.Product", "product")
@@ -622,17 +608,6 @@ namespace E_commerce_MVC.Migrations
                     b.Navigation("customer");
 
                     b.Navigation("product");
-                });
-
-            modelBuilder.Entity("E_commerce.Models.customer", b =>
-                {
-                    b.HasOne("E_commerce.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -686,6 +661,19 @@ namespace E_commerce_MVC.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("E_commerce.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("carts");
+
+                    b.Navigation("orders");
+
+                    b.Navigation("payments");
+
+                    b.Navigation("shipments");
+
+                    b.Navigation("wishLists");
+                });
+
             modelBuilder.Entity("E_commerce.Models.Category", b =>
                 {
                     b.Navigation("products");
@@ -713,19 +701,6 @@ namespace E_commerce_MVC.Migrations
             modelBuilder.Entity("E_commerce.Models.Shipment", b =>
                 {
                     b.Navigation("orders");
-                });
-
-            modelBuilder.Entity("E_commerce.Models.customer", b =>
-                {
-                    b.Navigation("carts");
-
-                    b.Navigation("orders");
-
-                    b.Navigation("payments");
-
-                    b.Navigation("shipments");
-
-                    b.Navigation("wishLists");
                 });
 #pragma warning restore 612, 618
         }

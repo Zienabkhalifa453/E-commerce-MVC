@@ -31,6 +31,7 @@ namespace E_commerce_MVC.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -52,7 +53,7 @@ namespace E_commerce_MVC.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "category",
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -62,7 +63,7 @@ namespace E_commerce_MVC.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_category", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -172,27 +173,54 @@ namespace E_commerce_MVC.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "customers",
+                name: "Payments",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Method = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Amount = table.Column<double>(type: "float", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    Customer_Id = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_customers", x => x.id);
+                    table.PrimaryKey("PK_Payments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_customers_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
+                        name: "FK_Payments_AspNetUsers_Customer_Id",
+                        column: x => x.Customer_Id,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "product",
+                name: "Shipments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Zip_Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    Customer_Id = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Shipments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Shipments_AspNetUsers_Customer_Id",
+                        column: x => x.Customer_Id,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -207,119 +235,16 @@ namespace E_commerce_MVC.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_product", x => x.Id);
+                    table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_product_category_Category_Id",
+                        name: "FK_Products_Categories_Category_Id",
                         column: x => x.Category_Id,
-                        principalTable: "category",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "Categories",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "payment",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Method = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Amount = table.Column<double>(type: "float", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Customer_Id = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_payment", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_payment_customers_Customer_Id",
-                        column: x => x.Customer_Id,
-                        principalTable: "customers",
-                        principalColumn: "id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "shipment",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    State = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Zip_Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Customer_Id = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_shipment", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_shipment_customers_Customer_Id",
-                        column: x => x.Customer_Id,
-                        principalTable: "customers",
-                        principalColumn: "id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "cart",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Customer_Id = table.Column<int>(type: "int", nullable: false),
-                    Product_Id = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_cart", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_cart_customers_Customer_Id",
-                        column: x => x.Customer_Id,
-                        principalTable: "customers",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_cart_product_Product_Id",
-                        column: x => x.Product_Id,
-                        principalTable: "product",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "wishList",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Customer_Id = table.Column<int>(type: "int", nullable: false),
-                    Product_Id = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_wishList", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_wishList_customers_Customer_Id",
-                        column: x => x.Customer_Id,
-                        principalTable: "customers",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_wishList_product_Product_Id",
-                        column: x => x.Product_Id,
-                        principalTable: "product",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "order",
+                name: "Orders",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -329,32 +254,85 @@ namespace E_commerce_MVC.Migrations
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     Payment_Id = table.Column<int>(type: "int", nullable: false),
                     Shipment_Id = table.Column<int>(type: "int", nullable: false),
-                    Customer_Id = table.Column<int>(type: "int", nullable: false)
+                    Customer_Id = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_order", x => x.Id);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_order_customers_Customer_Id",
+                        name: "FK_Orders_AspNetUsers_Customer_Id",
                         column: x => x.Customer_Id,
-                        principalTable: "customers",
-                        principalColumn: "id",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_order_payment_Payment_Id",
+                        name: "FK_Orders_Payments_Payment_Id",
                         column: x => x.Payment_Id,
-                        principalTable: "payment",
+                        principalTable: "Payments",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_order_shipment_Shipment_Id",
+                        name: "FK_Orders_Shipments_Shipment_Id",
                         column: x => x.Shipment_Id,
-                        principalTable: "shipment",
+                        principalTable: "Shipments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "orderItem",
+                name: "Carts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    Customer_Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Product_Id = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Carts_AspNetUsers_Customer_Id",
+                        column: x => x.Customer_Id,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Carts_Products_Product_Id",
+                        column: x => x.Product_Id,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WishLists",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    Customer_Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Product_Id = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WishLists", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WishLists_AspNetUsers_Customer_Id",
+                        column: x => x.Customer_Id,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_WishLists_Products_Product_Id",
+                        column: x => x.Product_Id,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderItems",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -367,17 +345,17 @@ namespace E_commerce_MVC.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_orderItem", x => x.Id);
+                    table.PrimaryKey("PK_OrderItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_orderItem_order_Order_Id",
+                        name: "FK_OrderItems_Orders_Order_Id",
                         column: x => x.Order_Id,
-                        principalTable: "order",
+                        principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_orderItem_product_Product_Id",
+                        name: "FK_OrderItems_Products_Product_Id",
                         column: x => x.Product_Id,
-                        principalTable: "product",
+                        principalTable: "Products",
                         principalColumn: "Id");
                 });
 
@@ -421,68 +399,63 @@ namespace E_commerce_MVC.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_cart_Customer_Id",
-                table: "cart",
+                name: "IX_Carts_Customer_Id",
+                table: "Carts",
                 column: "Customer_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_cart_Product_Id",
-                table: "cart",
+                name: "IX_Carts_Product_Id",
+                table: "Carts",
                 column: "Product_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_customers_ApplicationUserId",
-                table: "customers",
-                column: "ApplicationUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_order_Customer_Id",
-                table: "order",
-                column: "Customer_Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_order_Payment_Id",
-                table: "order",
-                column: "Payment_Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_order_Shipment_Id",
-                table: "order",
-                column: "Shipment_Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_orderItem_Order_Id",
-                table: "orderItem",
+                name: "IX_OrderItems_Order_Id",
+                table: "OrderItems",
                 column: "Order_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_orderItem_Product_Id",
-                table: "orderItem",
+                name: "IX_OrderItems_Product_Id",
+                table: "OrderItems",
                 column: "Product_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_payment_Customer_Id",
-                table: "payment",
+                name: "IX_Orders_Customer_Id",
+                table: "Orders",
                 column: "Customer_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_product_Category_Id",
-                table: "product",
+                name: "IX_Orders_Payment_Id",
+                table: "Orders",
+                column: "Payment_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_Shipment_Id",
+                table: "Orders",
+                column: "Shipment_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_Customer_Id",
+                table: "Payments",
+                column: "Customer_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_Category_Id",
+                table: "Products",
                 column: "Category_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_shipment_Customer_Id",
-                table: "shipment",
+                name: "IX_Shipments_Customer_Id",
+                table: "Shipments",
                 column: "Customer_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_wishList_Customer_Id",
-                table: "wishList",
+                name: "IX_WishLists_Customer_Id",
+                table: "WishLists",
                 column: "Customer_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_wishList_Product_Id",
-                table: "wishList",
+                name: "IX_WishLists_Product_Id",
+                table: "WishLists",
                 column: "Product_Id");
         }
 
@@ -505,34 +478,31 @@ namespace E_commerce_MVC.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "cart");
+                name: "Carts");
 
             migrationBuilder.DropTable(
-                name: "orderItem");
+                name: "OrderItems");
 
             migrationBuilder.DropTable(
-                name: "wishList");
+                name: "WishLists");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "order");
+                name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "product");
+                name: "Products");
 
             migrationBuilder.DropTable(
-                name: "payment");
+                name: "Payments");
 
             migrationBuilder.DropTable(
-                name: "shipment");
+                name: "Shipments");
 
             migrationBuilder.DropTable(
-                name: "category");
-
-            migrationBuilder.DropTable(
-                name: "customers");
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

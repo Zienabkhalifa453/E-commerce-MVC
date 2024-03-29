@@ -17,8 +17,8 @@ namespace E_commerce.Models
         public int Shipment_Id { get; set; }
         public Shipment shipment { get; set; }
         [ForeignKey("customer")]
-        public int Customer_Id { get; set; }
-        public customer customer { get; set; }
+        public string Customer_Id { get; set; }
+        public ApplicationUser customer { get; set; }
         public ICollection<OrderItem>? orderItems { get; set; }
 
     }

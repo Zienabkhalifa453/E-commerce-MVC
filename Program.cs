@@ -21,7 +21,7 @@ namespace E_commerce_MVC
                 options.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
             });
             builder.Services.AddScoped<IRepository<ApplicationUser>, Repository<ApplicationUser>>();
-            builder.Services.AddScoped<IRepository<customer>, Repository<customer>>();
+         
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

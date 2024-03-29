@@ -11,13 +11,13 @@ namespace E_commerce.Controllers
         UserManager<ApplicationUser> _userManager;
         SignInManager<ApplicationUser> _signInManager;
         IRepository<ApplicationUser> _repository;
-        IRepository<customer> customerRepository;
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,IRepository<ApplicationUser>appRpo, IRepository<customer> customerRepository)
+     
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,IRepository<ApplicationUser>appRpo)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _repository = appRpo;
-            this.customerRepository = customerRepository;
+            
         }
         public IActionResult Index()
         {
@@ -65,16 +65,7 @@ namespace E_commerce.Controllers
 
                 if (identityResult.Succeeded)
                 {
-                    var customer = new customer
-                    {
-                        ApplicationUserId = applicationUser.Id,
-
-                        IsDeleted = false
-                    };
-
-                    customerRepository.insert(customer);
-                    customerRepository.save();
-
+                    
                     await _signInManager.SignInAsync(applicationUser, false);
 
                  
