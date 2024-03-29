@@ -1,0 +1,16 @@
+# ASP.NET MVC .gitignore
+bin/
+obj/
+*.user
+*.suo
+.vs/
+.idea/
+.vscode/
+*.sln.docstates
+*.csproj.user
+packages/
+*.log
+*.tmp
+*.publish.xml
+*.pubxml.user
+*.generated.cs
