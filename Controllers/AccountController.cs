@@ -27,7 +27,10 @@ namespace E_commerce.Controllers
         [HttpGet]
         public IActionResult login()
         {
+
+
             //seravia
+
             return View();
         }
 
