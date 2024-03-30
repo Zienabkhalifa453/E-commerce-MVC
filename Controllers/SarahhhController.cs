@@ -2,11 +2,10 @@
 
 namespace E_commerce_MVC.Controllers
 {
-    public class seraviaController : Controller
+    public class SarahhhController : Controller
     {
         public IActionResult Index()
         {
-            //hi sero iam sara
             return View();
         }
     }
