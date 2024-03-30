@@ -27,6 +27,7 @@ namespace E_commerce.Controllers
         [HttpGet]
         public IActionResult login()
         {
+            //dina
             return View();
         }
 
