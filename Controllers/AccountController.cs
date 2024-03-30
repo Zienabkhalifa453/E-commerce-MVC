@@ -11,14 +11,14 @@ namespace E_commerce.Controllers
         UserManager<ApplicationUser> _userManager;
         SignInManager<ApplicationUser> _signInManager;
         IRepository<ApplicationUser> _repository;
-      
-     
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,IRepository<ApplicationUser>appRpo)
+
+
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IRepository<ApplicationUser> appRpo)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _repository = appRpo;
-            
+
         }
         public IActionResult Index()
         {
@@ -27,13 +27,14 @@ namespace E_commerce.Controllers
         [HttpGet]
         public IActionResult login()
         {
+            //seravia
             return View();
         }
 
 
         [HttpGet]
         public IActionResult register()
-         {
+        {
             return View("register");
 
         }
@@ -53,16 +54,16 @@ namespace E_commerce.Controllers
                     UserName = model.userName,
                     PasswordHash = model.password,
                     Email = model.email,
-                    Address=model.address,
+                    Address = model.address,
                 };
                 IdentityResult identityResult = await _userManager.CreateAsync(applicationUser, model.password);
 
                 if (identityResult.Succeeded)
                 {
-                    
+
                     await _signInManager.SignInAsync(applicationUser, false);
 
-                 
+
                     return RedirectToAction("RegisteredCustomers");
                 }
                 else
@@ -85,8 +86,8 @@ namespace E_commerce.Controllers
 
         public IActionResult RegisteredCustomers()
         {
-            List<ApplicationUser> customers =  _repository.GetAll().ToList();
-           
+            List<ApplicationUser> customers = _repository.GetAll().ToList();
+
             return View(customers);
         }
 
