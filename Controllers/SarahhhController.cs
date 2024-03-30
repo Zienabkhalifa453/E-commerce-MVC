@@ -6,6 +6,7 @@ namespace E_commerce_MVC.Controllers
     {
         public IActionResult Index()
         {//emy
+            //sarahhhh
             return View();
             //hellofromseravia
         }
