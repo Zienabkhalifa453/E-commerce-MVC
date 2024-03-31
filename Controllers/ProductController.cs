@@ -2,11 +2,13 @@
 
 namespace E_commerce_MVC.Controllers
 {
-    public class reemControllercs : Controller
+    public class ProductController : Controller
     {
         public IActionResult Index()
-        {//hello
+        {
             return View();
         }
+
+        //dina controller
     }
 }
