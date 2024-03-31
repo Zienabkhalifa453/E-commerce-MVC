@@ -4,13 +4,10 @@ namespace E_commerce_MVC.Controllers
 {
     public class CategoryController : Controller
     {
-        public IActionResult Index()
+        public IActionResult GetAllCategory()
         {
             return View();
         }
-        //sara
-        //hh
-        ///
-        ////
+       
     }
 }
