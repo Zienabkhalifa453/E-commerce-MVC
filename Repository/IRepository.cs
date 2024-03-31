@@ -1,8 +1,9 @@
 ﻿using E_commerce.Models;
+using E_commerce_MVC.interfaces;
 
 namespace E_commerce.Repository
 {
-    public interface IRepository<T> where T : class 
+    public interface IRepository<T> where T : class ,ISoftDeletable
     {
 
         public void insert(T entity);  

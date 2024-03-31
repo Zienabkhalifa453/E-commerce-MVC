@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace E_commerce.Repository
 {
-    public class Repository <T> : IRepository<T> where T : class
+    public class Repository <T> : IRepository<T> where T : class,ISoftDeletable
     {
 
         Context context;
@@ -23,11 +23,8 @@ namespace E_commerce.Repository
         public void delete(T entity)
         {
 
-            
-           if(entity is ISoftDeletable item)
-            {
-                item.IsDeleted = true;
-            }
+       entity.IsDeleted = true;
+       update(entity);
             
          
         }
