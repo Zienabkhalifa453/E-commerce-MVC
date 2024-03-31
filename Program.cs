@@ -19,8 +19,17 @@ namespace E_commerce_MVC
             builder.Services.AddDbContext<Context>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
+         
             });
-            builder.Services.AddScoped<IRepository<ApplicationUser>, Repository<ApplicationUser>>();
+          
+           
+
+           
+
+
+
+
+        builder.Services.AddScoped<IRepository<ApplicationUser>, Repository<ApplicationUser>>();
          
             var app = builder.Build();
 

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_commerce_MVC.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240329201022_db")]
+    [Migration("20240331205236_db")]
     partial class db
     {
         /// <inheritdoc />
@@ -139,6 +139,10 @@ namespace E_commerce_MVC.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("imageURL")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -358,6 +362,40 @@ namespace E_commerce_MVC.Migrations
                     b.HasIndex("Product_Id");
 
                     b.ToTable("WishLists");
+                });
+
+            modelBuilder.Entity("E_commerce_MVC.Models.Comments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("userId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -610,6 +648,25 @@ namespace E_commerce_MVC.Migrations
                     b.Navigation("product");
                 });
 
+            modelBuilder.Entity("E_commerce_MVC.Models.Comments", b =>
+                {
+                    b.HasOne("E_commerce.Models.Product", "product")
+                        .WithMany("comments")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("E_commerce.Models.ApplicationUser", "applicationUser")
+                        .WithMany("comments")
+                        .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("applicationUser");
+
+                    b.Navigation("product");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -665,6 +722,8 @@ namespace E_commerce_MVC.Migrations
                 {
                     b.Navigation("carts");
 
+                    b.Navigation("comments");
+
                     b.Navigation("orders");
 
                     b.Navigation("payments");
@@ -692,6 +751,8 @@ namespace E_commerce_MVC.Migrations
             modelBuilder.Entity("E_commerce.Models.Product", b =>
                 {
                     b.Navigation("carts");
+
+                    b.Navigation("comments");
 
                     b.Navigation("orderItems");
 

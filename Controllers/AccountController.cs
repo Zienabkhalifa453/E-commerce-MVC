@@ -28,8 +28,6 @@ namespace E_commerce.Controllers
         public IActionResult login()
         {
 
-            //dina
-            //seravia
 
             return View();
         }

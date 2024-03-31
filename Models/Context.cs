@@ -14,11 +14,12 @@ namespace E_commerce.Models
         public DbSet<Shipment> Shipments { get; set; }
         public DbSet<WishList> WishLists { get; set; }
 
+        public Context() { }
         public Context(DbContextOptions<Context> options) : base(options)
         {
 
         }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
