@@ -19,13 +19,7 @@ namespace E_commerce.Models
         {
 
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-
-            optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=E-commerce;Integrated Security=True;Encrypt=False");
-
-        }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
