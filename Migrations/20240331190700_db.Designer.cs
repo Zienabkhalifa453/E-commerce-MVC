@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_commerce_MVC.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240331172718_addCategoryImg")]
-    partial class addCategoryImg
+    [Migration("20240331190700_db")]
+    partial class db
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
