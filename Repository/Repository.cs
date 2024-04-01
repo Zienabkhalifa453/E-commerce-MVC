@@ -8,12 +8,11 @@ namespace E_commerce.Repository
     public class Repository <T> : IRepository<T> where T : class,ISoftDeletable
     {
 
-        Context context;
+        protected Context context;
         public Repository(Context context)
         {
             this.context = context;
         }
-
 
         public void insert(T entity)
         {
@@ -45,9 +44,6 @@ namespace E_commerce.Repository
         {
             return context.Set<T>().FirstOrDefault(predicate);
         }
-
-  
-
 
         public int save()
         {
