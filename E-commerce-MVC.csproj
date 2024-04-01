@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <Folder Include="Properties\TestImg\" />
-    <Folder Include="Views\Category\" />
   </ItemGroup>
 
 </Project>

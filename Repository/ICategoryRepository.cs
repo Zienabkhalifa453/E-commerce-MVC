@@ -6,5 +6,6 @@ namespace E_commerce_MVC.Repository
     public interface ICategoryRepository : IRepository<Category>
     {
         public string GetName(int id);
+        public List<Category> GetAllCategories();
     }
 }
