@@ -34,7 +34,9 @@ namespace E_commerce_MVC
 
         builder.Services.AddScoped<IProductRepository, ProductRepository>();
         builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-         
+
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
