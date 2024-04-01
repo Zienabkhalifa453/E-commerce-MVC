@@ -1,5 +1,6 @@
 using E_commerce.Models;
 using E_commerce.Repository;
+using E_commerce_MVC.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,6 +31,9 @@ namespace E_commerce_MVC
 
 
         builder.Services.AddScoped<IRepository<ApplicationUser>, Repository<ApplicationUser>>();
+
+        builder.Services.AddScoped<IProductRepository, ProductRepository>();
+        builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
          
             var app = builder.Build();
 
