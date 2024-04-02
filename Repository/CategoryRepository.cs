@@ -14,5 +14,10 @@ namespace E_commerce_MVC.Repository
         {
             return context.Categories.Where(c => c.Id == id).First().Name;
         }
+
+        public List<Category> GetAllCategories()
+        {
+            return context.Categories.ToList();
+        }
     }
 }
