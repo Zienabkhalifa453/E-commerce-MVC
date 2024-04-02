@@ -27,7 +27,7 @@ namespace E_commerce_MVC.Controllers
         public IActionResult GetAllProducts()
         {
             List<Product> products = (List<Product>)ProductRepository.GetAll();
-            return View("GetAllProducts");
+            return View("GetAllProducts",products);
         }
 
         public IActionResult GetProductsByCategoryId(int CategoryId)

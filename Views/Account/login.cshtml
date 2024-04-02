@@ -2,14 +2,13 @@
 
 @{
     ViewData["Title"] = "login";
-
 }
 
-<h1>Login</h1>
+<h1 class="text-center">Login</h1>
 
 <h4>LoginVm</h4>
 <hr />
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-4">
         <form asp-action="login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -29,15 +28,18 @@
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <button type="submit" class="btn btn-danger btn-block"><i class="fas fa-sign-in-alt"></i> Login</button>
             </div>
         </form>
+        <hr />
+        <div class="text-center">
+            <p>Or login with:</p>
+            <a href="#" class="btn btn-danger"><i class="fab fa-google"></i> Login with Google</a>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{
