@@ -39,7 +39,7 @@ namespace E_commerce.Repository
         }
 
 
-        //find and thing name ,id and etc.....
+        //find object by name ,id or etc.....
         public T Get(Func<T, bool> predicate)
         {
             return context.Set<T>().FirstOrDefault(predicate);
