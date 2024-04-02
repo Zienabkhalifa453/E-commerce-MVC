@@ -50,6 +50,21 @@ namespace E_commerce_MVC.Controllers
 
             return View("GetProductsByCategoryId" , productPartViewModel);
         }
+
+        public IActionResult AddToCart(int ProductId)
+        {
+            Product product = ProductRepository.Get(p => p.Id == ProductId);
+            return View("ShoppingCart",product);
+        }
+
+        
+        public IActionResult AddToWishList(int ProductId)
+        {
+            Product product = ProductRepository.Get(p => p.Id == ProductId);
+            return View("wishingList",product);
+        }
+
+
        
     }
 }
