@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "GetAllCategory";
 }
-
+<partial name="_slider"></partial>
 
 <div class="popular-items pt-50">
             <div class="container-fluid">
@@ -14,7 +14,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="single-popular-items mb-50 text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
                         <div class="popular-img">
-                            <img src="/imgTest/@category.imageURL" alt=""> @* I will change the path, this for test *@
+                            <img src="/img/gallery/@category.imageURL" alt=""> 
                             <div class="img-cap">
                                 <span>@category.Name</span>
                             </div>
