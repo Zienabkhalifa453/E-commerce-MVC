@@ -10,6 +10,7 @@ namespace E_commerce_MVC.Repository
         public List<int> GetProductIDsByCatId(int CategoryId);
         public List<string> GetProductImagesByCatId(int CategoryId);
         public List<double> GetProductPricesByCatId(int CategoryId);
+        public List<Product> GetLatestProduct();
 
     }
 }
