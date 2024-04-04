@@ -1,11 +1,9 @@
 ﻿using E_commerce.Models;
 using E_commerce_MVC.interfaces;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace E_commerce.Repository
 {
-    public class Repository <T> : IRepository<T> where T : class,ISoftDeletable
+    public class Repository<T> : IRepository<T> where T : class, ISoftDeletable
     {
 
         protected Context context;
@@ -22,10 +20,10 @@ namespace E_commerce.Repository
         public void delete(T entity)
         {
 
-       entity.IsDeleted = true;
-       update(entity);
-            
-         
+            entity.IsDeleted = true;
+            update(entity);
+
+
         }
 
         public void update(T entity)
@@ -34,7 +32,7 @@ namespace E_commerce.Repository
         }
         public ICollection<T> GetAll()
         {
-            
+
             return context.Set<T>().ToList();
         }
 
@@ -47,10 +45,10 @@ namespace E_commerce.Repository
 
         public int save()
         {
-          return  context.SaveChanges();
+            return context.SaveChanges();
         }
 
-      
+
     }
- 
+
 }
