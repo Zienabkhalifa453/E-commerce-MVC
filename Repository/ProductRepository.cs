@@ -1,5 +1,6 @@
 ﻿using E_commerce.Models;
 using E_commerce.Repository;
+using Microsoft.AspNetCore.Mvc;
 
 namespace E_commerce_MVC.Repository
 {
@@ -34,6 +35,16 @@ namespace E_commerce_MVC.Repository
             return context.Products.Where(p => p.Category_Id == CategoryId).Select(p => p.Price).ToList();
         }
 
+        //Get latest product in each category
+        public List<Product> GetLatestProduct()
+        {
+            var latestProductsInCategories = context.Products
+                 .GroupBy(p => p.Category_Id)
+                 .Select(g => g.OrderByDescending(p => p.Id).FirstOrDefault())
+                 .ToList();
+
+            return latestProductsInCategories;
+        }
 
     }
 }
