@@ -1,0 +1,40 @@
+﻿@model List<Payment>
+
+@{
+   
+    var users = ViewData["Users"] as List<ApplicationUser>;
+
+}
+
+<div class="container" style="margin-bottom: 140px;">
+    <table class="table table-hover table-bordered  table table-striped">
+        <thead class="dark-green">
+            <tr>
+               
+                <th scope="col">Payment Id</th>
+                <th scope="col">Customer Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Date</th>
+                <th scope="col">Method</th>
+                <th scope="col">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Payment item in Model)
+            {
+                <tr>
+                    
+                    <td>@item.Id</td>
+                    <td>@item.Customer_Id</td>
+                    <td>@item.customer.UserName</td>
+                    @*<td>@users?.FirstOrDefault(u => u.Id == item.Customer_Id)?.UserName</td>*@
+                    <td>@item.customer.NormalizedEmail</td>
+                    <td>@item.Date</td>
+                    <td>@item.Method</td>
+                    <td>@item.Amount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

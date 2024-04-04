@@ -20,18 +20,20 @@ namespace E_commerce_MVC
             builder.Services.AddDbContext<Context>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
-         
+
             });
 
 
-         
-
-        builder.Services.AddScoped<IRepository<ApplicationUser>, Repository<ApplicationUser>>();
-        builder.Services.AddScoped<IProductRepository, ProductRepository>();
-        builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 
-            
+            builder.Services.AddScoped<IRepository<ApplicationUser>, Repository<ApplicationUser>>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+            builder.Services.AddScoped<IRepository<Shipment>, Repository<Shipment>>();
+            builder.Services.AddScoped<IRepository<Payment>, Repository<Payment>>();
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
