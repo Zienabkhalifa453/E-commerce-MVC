@@ -24,11 +24,11 @@ namespace E_commerce_MVC
             });
 
 
+         
 
-
-            builder.Services.AddScoped<IRepository<ApplicationUser>, Repository<ApplicationUser>>();
-            builder.Services.AddScoped<IProductRepository, ProductRepository>();
-            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+        builder.Services.AddScoped<IRepository<ApplicationUser>, Repository<ApplicationUser>>();
+        builder.Services.AddScoped<IProductRepository, ProductRepository>();
+        builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             builder.Services.AddScoped<IRepository<Shipment>, Repository<Shipment>>();
             builder.Services.AddScoped<IRepository<Payment>, Repository<Payment>>();
@@ -51,7 +51,6 @@ namespace E_commerce_MVC
             app.UseAuthentication();
 
             app.UseAuthorization();
-
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
