@@ -1,0 +1,36 @@
+﻿@model E_commerce_MVC.viewModels.WishListViewModel
+
+<h2>Specific User Wishlist</h2>
+
+<table class="table table-light table-hover">
+    <thead>
+        <tr>
+            <th class="text-center"></th>
+            <th class="text-center">Product Image</th>
+            <th class="text-center">Product Name</th>
+            <th class="text-center">Product Price</th>
+            <th class="text-center">Stock Status</th>
+            <th class="text-center">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.ProductName.Count; i++)
+        {
+            <tr>
+                <td class="text-center">
+                    <a asp-action="Remove" asp-route-id="@Model.ProductId[i]">
+                        <i class="bi bi-x-circle-fill text-dark"></i>
+                    </a>
+                </td>
+                <td class="text-center"><img src="@Model.ImgUrl[i]" class="img-thumbnail" alt="@Model.ProductName[i]"></td>
+                <td class="text-center">@Model.ProductName[i]</td>
+                <td class="text-center">$@Model.Price[i]</td>
+                <td class="text-center">@Model.Stock[i]</td>
+                <td class="text-center">
+                    <a class="btn btn-info" asp-action="#" asp-controller="Cart">Add To Cart</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
