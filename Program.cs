@@ -1,5 +1,6 @@
 using E_commerce.Models;
 using E_commerce.Repository;
+using E_commerce_MVC.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,16 +22,16 @@ namespace E_commerce_MVC
                 options.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
          
             });
-          
-           
-
-           
 
 
-
+         
 
         builder.Services.AddScoped<IRepository<ApplicationUser>, Repository<ApplicationUser>>();
-         
+        builder.Services.AddScoped<IProductRepository, ProductRepository>();
+        builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -45,6 +46,7 @@ namespace E_commerce_MVC
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

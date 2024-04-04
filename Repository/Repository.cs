@@ -8,12 +8,11 @@ namespace E_commerce.Repository
     public class Repository <T> : IRepository<T> where T : class,ISoftDeletable
     {
 
-        Context context;
+        protected Context context;
         public Repository(Context context)
         {
             this.context = context;
         }
-
 
         public void insert(T entity)
         {
@@ -40,14 +39,11 @@ namespace E_commerce.Repository
         }
 
 
-        //find and thing name ,id and etc.....
+        //find object by name ,id or etc.....
         public T Get(Func<T, bool> predicate)
         {
             return context.Set<T>().FirstOrDefault(predicate);
         }
-
-  
-
 
         public int save()
         {
