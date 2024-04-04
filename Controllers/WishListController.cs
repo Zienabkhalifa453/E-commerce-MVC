@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace E_commerce_MVC.Controllers
 {
+
     public class WishListController : Controller
     {
         private readonly IWishListRepository wishListRepository;
@@ -15,7 +16,7 @@ namespace E_commerce_MVC.Controllers
             this.wishListRepository = wishListRepository;
             this.productRepository = productRepository;
         }
-
+        //[Authorize]
         public IActionResult Index(string id)
         {
             List<WishList> wishLists = wishListRepository.GetAllbyCustomerId(id);
