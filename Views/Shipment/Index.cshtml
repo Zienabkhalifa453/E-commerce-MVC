@@ -1,0 +1,49 @@
+﻿@model List<Shipment>
+
+@{
+   
+    var users = ViewData["Users"] as List<ApplicationUser>;
+   
+
+}
+
+
+
+<div class="container" style="margin-bottom: 150px;">
+    <table class="table table-hover table-bordered  table table-striped">
+        <thead class="dark-green">
+            <tr>
+               
+                <th scope="col">Shipment Id</th>
+                <th scope="col">Customer Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Date</th>
+                <th scope="col">Address</th>
+                <th scope="col">City</th>
+                <th scope="col">State</th>
+                <th scope="col">Country</th>
+                <th scope="col">Zip_Code</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Shipment item in Model)
+            {
+                <tr>
+                   
+                    <td>@item.Id</td>
+                    <td>@item.Customer_Id</td>
+                    <td>@item.customer.UserName</td>
+                    @* <td>@users?.FirstOrDefault(u => u.Id == item.Customer_Id)?.UserName</td> *@
+                    <td>@item.customer.NormalizedEmail</td>
+                    <td>@item.Date</td>
+                    <td>@item.Address</td>
+                    <td>@item.City</td>
+                    <td>@item.State</td>
+                    <td>@item.Country</td>
+                    <td>@item.Zip_Code</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
