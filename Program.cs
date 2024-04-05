@@ -54,7 +54,7 @@ namespace E_commerce_MVC
             app.UseAuthorization();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=category}/{action=getallcategory}/{id?}");
 
             app.Run();
         }
