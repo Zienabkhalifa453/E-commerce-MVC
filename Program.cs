@@ -25,14 +25,14 @@ namespace E_commerce_MVC
 
 
 
-
+            builder.Services.AddScoped<IWishListRepository, WishListRepository>();
             builder.Services.AddScoped<IRepository<ApplicationUser>, Repository<ApplicationUser>>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             builder.Services.AddScoped<IRepository<Shipment>, Repository<Shipment>>();
             builder.Services.AddScoped<IRepository<Payment>, Repository<Payment>>();
-            builder.Services.AddScoped<IRepository<WishList>, Repository<WishList>>();
+
 
 
             var app = builder.Build();
