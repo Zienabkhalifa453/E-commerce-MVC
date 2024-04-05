@@ -2,6 +2,7 @@
 using E_commerce_MVC.Repository;
 using E_commerce_MVC.viewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace E_commerce_MVC.Controllers
 {
@@ -27,7 +28,7 @@ namespace E_commerce_MVC.Controllers
         public IActionResult GetAllProducts()
         {
             List<Product> products = (List<Product>)ProductRepository.GetAll();
-            return View("GetAllProducts");
+            return View("GetAllProducts",products);
         }
 
         public IActionResult GetProductsByCategoryId(int CategoryId)
@@ -64,7 +65,14 @@ namespace E_commerce_MVC.Controllers
             return View("wishingList",product);
         }
 
+        //Get latest product in each category
+        //public IActionResult GetLatestProduct()
+        //{
+        //    List<Product> latestProductsInCategories = (List<Product>)ProductRepository.GetLatestProduct();
+        //    ViewBag.Products = latestProductsInCategories;
+        //    return View("_GetLatestProduct");
 
-       
+        //}
+
     }
 }

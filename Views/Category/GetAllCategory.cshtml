@@ -1,0 +1,90 @@
+﻿
+
+@{
+    ViewData["Title"] = "GetAllCategory";
+}
+
+<partial name="_slider"></partial>
+
+
+<div class="popular-items pt-50">
+    <div class="container-fluid">
+        <div class="row">
+            @foreach (var category in Model.categories)
+
+            {
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="single-popular-items mb-50 text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
+                        <div class="popular-img">
+                            <img src="/img/gallery/@category.imageURL" alt="">
+                            <div class="img-cap">
+                                <span>@category.Name</span>
+                            </div>
+                            <div class="favorit-items">
+                                <form asp-action="GetProductsByCategoryId" asp-controller="Product">
+                                    <input type="hidden" name="categoryId" value="@category.Id" />
+                                    <button type="submit" class="btn">Shop Now</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="new-arrival">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-7 col-lg-8 col-md-10">
+                <div class="section-tittle mb-60 text-center wow fadeInUp" data-wow-duration="2s" data-wow-delay=".2s">
+                    <h2>new<br>arrival</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            @if (Model.products != null && Model.products.Count > 0)
+            {
+                @foreach (var product in Model.products)
+                {
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                        <div class="single-new-arrival mb-50 text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
+                            <div class="popular-img">
+                                <img src="/img/gallery/@product.Image_Url" alt="">    
+                            </div>
+                            <div class="popular-caption">
+                                <h3>
+                                    <a href="" onclick="event.preventDefault(); document.getElementById('productId').value = @product.Id; document.getElementById('productForm').submit();">
+                                        @product.Name
+                                    </a> @* link *@
+                                </h3>
+                              
+                                <div class="rating mb-10">
+                                </div>
+                                <span>$ @product.Price</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No products available</p>
+            }
+
+ </div>
+</div>
+ </div>
+
+ <div class="row justify-content-center mb-5">
+    <div class="room-btn">
+        <form action="/" method="post">
+            <button class="border-btn text-dark" type="submit">Browse More</button>
+        </form>
+    </div>
+</div>
+
+<partial name="_AboutUs"></partial>
+<partial name="_FastFreeDelivery"></partial>

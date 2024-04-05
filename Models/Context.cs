@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace E_commerce.Models
@@ -24,10 +25,12 @@ namespace E_commerce.Models
         {
             base.OnModelCreating(modelBuilder);
 
+         
+
             // Configure Relationships and Cascade Behavior
 
-            // Cart - ApplicationUser Relationship
-            modelBuilder.Entity<Cart>()
+           // Cart - ApplicationUser Relationship
+           modelBuilder.Entity<Cart>()
                 .HasOne(c => c.customer)
                 .WithMany(u => u.carts)
                 .HasForeignKey(c => c.Customer_Id)

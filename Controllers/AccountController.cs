@@ -1,6 +1,7 @@
 ﻿using E_commerce.Models;
 using E_commerce.Repository;
 using E_commerce.viewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,6 +33,29 @@ namespace E_commerce.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> login(loginVm uservm)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser applicationUser = await _userManager.FindByNameAsync(uservm.userName);
+
+                if (applicationUser != null)
+                {
+                    bool found = await _userManager.CheckPasswordAsync(applicationUser, uservm.password);
+
+                    if (found)
+                    {
+                        await _signInManager.SignInAsync(applicationUser, uservm.RememberMe);
+                        return Content("hiii");
+                    }
+                }
+                ModelState.AddModelError("", "Invalid username or password");
+            }
+
+            return View("login");
+        }
 
         [HttpGet]
         public IActionResult register()
@@ -58,7 +82,7 @@ namespace E_commerce.Controllers
 
                 if (identityResult.Succeeded)
                 {
-
+                    await _userManager.AddToRoleAsync(applicationUser, "User");
                     await _signInManager.SignInAsync(applicationUser, false);
 
 
@@ -77,17 +101,25 @@ namespace E_commerce.Controllers
             return View("register", model);
         }
 
+        public async Task<IActionResult> signOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("login");
+        }
 
 
 
         // for trials only
-
+        [Authorize(Roles ="Admin")]
         public IActionResult RegisteredCustomers()
         {
             List<ApplicationUser> customers = _repository.GetAll().ToList();
 
             return View(customers);
         }
+
+
+
 
 
     }
