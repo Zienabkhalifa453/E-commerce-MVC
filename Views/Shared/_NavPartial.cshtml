@@ -1,0 +1,40 @@
+﻿<div class="main-menu  d-none d-lg-block">
+    <nav>
+        <ul id="navigation">
+            @if (!User.Identity.IsAuthenticated)
+            {
+
+                <li><a href="/Account/login">Login</a></li>
+
+                <li><a href="/Account/Register">Register</a></li>
+            }
+            @if (User.Identity.IsAuthenticated == true)
+            
+            {
+           
+                <li><a href="index.html">Home</a></li>
+            <li><a asp-action="GetAllProducts" asp-controller="Product">shop</a></li>
+            <li><a href="about.html">About</a></li>
+                @if (User.IsInRole("Admin") == true)
+                {
+            <li><a href="/Account/RegisteredCustomers">Registered Details</a></li>
+                }
+             <li><a href="/Account/signout">log out</a></li>
+            <li>
+                <a href="blog.html">Blog</a>
+                <ul class="submenu">
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="blog_details.html">Blog Details</a></li>
+                    <li><a href="elements.html">Elements</a></li>
+                    <li><a href="product_details.html">Product Details</a></li>
+                    
+            
+            </li>
+             
+
+      
+        }
+        </ul>
+    </nav>
+</div>
+                        </div>
