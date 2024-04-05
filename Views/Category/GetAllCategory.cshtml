@@ -1,7 +1,5 @@
-﻿
-
-@{
-    ViewData["Title"] = "GetAllCategory";
+﻿@{
+    ViewData["Title"] = "Home";
 }
 
 <partial name="_slider"></partial>
@@ -75,7 +73,7 @@
  </div>
   <div class="row justify-content-center mb-5">
     <div class="room-btn">
-        <form action="/" method="post">
+        <form asp-action="GetAllProducts" asp-controller="product" >
             <button class="border-btn text-dark" type="submit">Browse More</button>
         </form>
     </div>
