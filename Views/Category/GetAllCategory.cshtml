@@ -4,9 +4,7 @@
     ViewData["Title"] = "GetAllCategory";
 }
 
-<div>
-    @Html.Partial("_slider")
-</div>
+<partial name="_slider"></partial>
 
 
 <div class="popular-items pt-50">
@@ -80,7 +78,7 @@
 </div>
  </div>
 
- <div class="row justify-content-center">
+ <div class="row justify-content-center mb-5">
     <div class="room-btn">
         <form action="/" method="post">
             <button class="border-btn text-dark" type="submit">Browse More</button>
@@ -88,3 +86,5 @@
     </div>
 </div>
 
+<partial name="_AboutUs"></partial>
+<partial name="_FastFreeDelivery"></partial>
