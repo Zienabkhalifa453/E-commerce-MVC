@@ -17,15 +17,9 @@ namespace E_commerce_MVC.Controllers
         public IActionResult AddRole()
         {
             // Check if the current user is in the "Admin" role
-            if (User.IsInRole("Admin"))
-            {
+          
                 return View();
-            }
-            else
-            {
-                // Redirect to an unauthorized page or show an error message
-                return RedirectToAction("AccessDenied", "Account");
-            }
+           
         }
 
         [HttpPost]
