@@ -1,11 +1,10 @@
-﻿
+﻿@model List<Product>
 @{
     ViewData["Title"] = "GetAllProducts";
     Layout = "_Layout";
 }
 
-<body class="full-wrapper">
-  
+
     <main>
         <!-- breadcrumb Start-->
         <div class="page-notification">
@@ -108,10 +107,41 @@
                         <div class="new-arrival new-arrival2">
                             <div class="row">
 
+                                @foreach(Product p in Model)
+                                {
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                                        <div class="single-new-arrival mb-50 text-center">
+                                            <div class="popular-img">
+                                                <img src="@p.Image_Url" alt="">
+                                                <div class="favorit-items">
+                                                    <a asp-action="AddToCart" asp-route-Id="@p.Id">
+                                                       <img src="/img/gallery/favorit-card.png" alt="">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="popular-caption">
+                                                <h3><a href="/Product/Details">@p.Name</a></h3>
+                                                <div class="rating mb-10">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                                <span>@p.Price</span>
+                                                <div >
+                                                   <a asp-action="AddToCart" asp-route-Id="@p.Id" class="btn btn-info">Add To Cart</a>
+                                                   <a asp-action="AddToCart" asp-route-Id="@p.Id" class="btn btn-info">Add To WishingList</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+@* 
                                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                                     <div class="single-new-arrival mb-50 text-center">
                                         <div class="popular-img">
-                                            <img src="/img/gallery/arrival2.png" alt="">
+                                            <img src="/img/gallery/arrival2.png" alt=""> 
                                             <div class="favorit-items">
                                                 <!-- <span class="flaticon-heart"></span> -->
                                                 <img src="/img/gallery/favorit-card.png" alt="">
@@ -293,6 +323,7 @@
                             </div>
                         </div>
                         <!--? New Arrival End -->
+                                *@
                     </div>
                 </div>
             </div>
@@ -426,5 +457,3 @@
     <div id="back-top">
         <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
     </div>
-
-</body>
