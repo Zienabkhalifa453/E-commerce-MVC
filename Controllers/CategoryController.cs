@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace E_commerce_MVC.Controllers
 {
 
+    //[Route("Home")]
     public class CategoryController : Controller
     {
 
@@ -23,7 +24,6 @@ namespace E_commerce_MVC.Controllers
         {
             return View();
         }
-
 
 
         public IActionResult GetAllCategory()
