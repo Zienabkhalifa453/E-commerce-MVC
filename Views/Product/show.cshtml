@@ -1,0 +1,31 @@
+﻿@model List<Product>
+
+@{
+    ViewData["Title"] = "Show Products";
+}
+
+<div class="container">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <img src="/img/gallery/@product.Image_Url" class="card-img-top" alt="@product.Name">
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text">@product.Description</p>
+                        <p class="card-text">@product.Price</p>
+                        <p class="card-text">@product.Quantity</p>
+                    
+                        <button class="btn btn-danger"> Add to card</button>
+
+                        @if (User.IsInRole("Admin") == true)
+                        {
+                            <button class="btn btn-danger my-3"> Delete product</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
