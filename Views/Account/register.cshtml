@@ -1,68 +1,105 @@
 ﻿@model RegisterVm
 
 @{
-    ViewData["Title"] = "register";
-}
-
-<h1 class="text-center">Register</h1>
-<hr />
-<div class="row justify-content-center">
-    <div class="col-md-4">
-        <form asp-action="register">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="userName" class="control-label"></label>
-                <input asp-for="userName" class="form-control form-control-lg" style="height: 40px;" />
-                <span asp-validation-for="userName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="password" class="control-label"></label>
-                <input asp-for="password" class="form-control form-control-lg" style="height: 40px;" />
-                <span asp-validation-for="password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="confirmPassword" class="control-label"></label>
-                <input asp-for="confirmPassword" class="form-control form-control-lg" style="height: 40px;" />
-                <span asp-validation-for="confirmPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="email" class="control-label"></label>
-                <input asp-for="email" class="form-control form-control-lg" style="height: 40px;" />
-                <span asp-validation-for="email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="emailConfirmation" class="control-label"></label>
-                <input asp-for="emailConfirmation" class="form-control form-control-lg" style="height: 40px;" />
-                <span asp-validation-for="emailConfirmation" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="address" class="control-label"></label>
-                <input asp-for="address" class="form-control form-control-lg" style="height: 40px;" />
-                <span asp-validation-for="address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block btn-custom mt-3"><i class="fas fa-user-plus"></i> Create</button>
-            </div>
-        </form>
-        <hr />
-        <div class="text-center">
-            <p>Or register with:</p>
-            <a href="#" class="btn btn-primary btn btn-custom mt-2"><i class="fab fa-facebook-f"></i> </a>
-            <a href="#" class="btn btn-danger btn btn-custom mt-2"><i class="fab fa-google"></i> </a>
-        </div>
-    </div>
-</div>
-
-
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    ViewData["Title"] = "Register";
 }
 
 <style>
+
+    .custom-radius {
+        border-radius: 5%;
+    }
+
     .btn-custom {
-        height: 35px;
+        border-radius: 5%;
+      
+        font-size: 1.25rem;
+        margin-top: 10px;
+    }
+
+
+    .form-control {
+        font-size: 1.5rem;
     }
 </style>
+
+
+    <h1 class="text-center">Register</h1>
+    <hr />
+<div class="row justify-content-center" >
+        <div class="col-md-4">
+            <form asp-action="Register" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group custom-radius">
+                    <label asp-for="userName" class="control-label">Username</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <input asp-for="userName" class="form-control form-control-lg custom-radius" style="height: 50px;" />
+                    </div>
+                    <span asp-validation-for="userName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group custom-radius">
+                    <label asp-for="password" class="control-label">Password</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                        </div>
+                        <input asp-for="password" class="form-control form-control-lg custom-radius" style="height: 50px;" />
+                    </div>
+                    <span asp-validation-for="password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group custom-radius">
+                    <label asp-for="confirmPassword" class="control-label">Confirm Password</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                        </div>
+                        <input asp-for="confirmPassword" class="form-control form-control-lg custom-radius" style="height: 50px;" />
+                    </div>
+                    <span asp-validation-for="confirmPassword" class="text-danger"></span>
+                </div>
+
+                <div class="form-group custom-radius">
+                    <label asp-for="email" class="control-label">Email</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        </div>
+                        <input asp-for="email" class="form-control form-control-lg custom-radius" style="height: 50px;" />
+                    </div>
+                    <span asp-validation-for="email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group custom-radius">
+                    <label asp-for="address" class="control-label">Address</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                        </div>
+                        <input asp-for="address" class="form-control form-control-lg custom-radius" style="height: 50px;" />
+                    </div>
+                    <span asp-validation-for="address" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block btn-custom"><i class="fas fa-user-plus"></i> Create</button>
+                </div>
+            </form>
+            <hr />
+            <div class="text-center">
+                <p>Or register with:</p>
+              
+                <a href="#" class="btn btn-danger btn-block btn-custom"><i class="fab fa-google"></i> Register with Google</a>
+            </div>
+        </div>
+    </div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

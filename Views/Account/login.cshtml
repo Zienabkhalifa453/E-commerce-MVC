@@ -1,48 +1,62 @@
-﻿@model E_commerce.viewModels.loginVm
+﻿@model loginVm
 
 @{
-    ViewData["Title"] = "login";
+    ViewData["Title"] = "Login";
 }
 
-<h1 class="text-center">Login</h1>
+<style>
+    .custom-radius {
+        border-radius: 5%;
+    }
 
-<h4>LoginVm</h4>
+    .btn-custom {
+        border-radius: 5%;
+        width:60%;
+        
+   
+    }
+
+    .form-control {
+        font-size: 1.5rem; 
+    }
+</style>
+
+<h1 class="text-center">Login</h1>
 <hr />
 <div class="row justify-content-center">
     <div class="col-md-4">
-        <form asp-action="login">
+        <form asp-action="Login" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="userName" class="control-label"></label>
-                <input asp-for="userName" class="form-control" />
+
+            <div class="mb-3 custom-radius">
+                <label asp-for="userName" class="form-label">Username</label>
+                <input asp-for="userName" class="form-control" style="height: 50px;" />
                 <span asp-validation-for="userName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="password" class="control-label"></label>
-                <input asp-for="password" class="form-control" />
+
+            <div class="mb-3 custom-radius">
+                <label asp-for="password" class="form-label">Password</label>
+                <input asp-for="password" type="password" class="form-control" style="height: 50px;" />
                 <span asp-validation-for="password" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
-                </label>
+
+            <div class="mb-3 form-check">
+                <input class="form-check-input" asp-for="RememberMe" />
+                <label class="form-check-label" for="RememberMe">Remember Me</label>
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-danger btn-block"><i class="fas fa-sign-in-alt"></i> Login</button>
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-danger btn-block btn-custom"><i class="fas fa-sign-in-alt"></i> Login</button>
             </div>
         </form>
         <hr />
         <div class="text-center">
             <p>Or login with:</p>
-            <a href="#" class="btn btn-danger"><i class="fab fa-google"></i> Login with Google</a>
+            <a href="#" class="btn btn-danger btn-block btn-custom"><i class="fab fa-google"></i> Login with Google</a>
         </div>
     </div>
 </div>
 
-
-
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    <partial name="_ValidationScriptsPartial" />
 }
