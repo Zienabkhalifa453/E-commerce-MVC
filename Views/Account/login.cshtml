@@ -1,10 +1,8 @@
-﻿@model E_commerce.viewModels.loginVm
+@model loginVm
 
 @{
-    ViewData["Title"] = "login";
+    ViewData["Title"] = "Login";
 }
-
-
 <link rel="stylesheet" href="/FormRegisterLogin/fonts/material-icon/css/material-design-iconic-font.min.css">
 <link rel="stylesheet" href="/FormRegisterLogin/css/style.css">
 
@@ -50,9 +48,61 @@
         </div>
     </div>
 </section>
+=======
+<style>
+    .custom-radius {
+        border-radius: 5%;
+    }
+
+    .btn-custom {
+        border-radius: 5%;
+        width:60%;
+        
+   
+    }
+
+    .form-control {
+        font-size: 1.5rem; 
+    }
+</style>
+
+<h1 class="text-center">Login</h1>
+<hr />
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <form asp-action="Login" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3 custom-radius">
+                <label asp-for="userName" class="form-label">Username</label>
+                <input asp-for="userName" class="form-control" style="height: 50px;" />
+                <span asp-validation-for="userName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 custom-radius">
+                <label asp-for="password" class="form-label">Password</label>
+                <input asp-for="password" type="password" class="form-control" style="height: 50px;" />
+                <span asp-validation-for="password" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input class="form-check-input" asp-for="RememberMe" />
+                <label class="form-check-label" for="RememberMe">Remember Me</label>
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-danger btn-block btn-custom"><i class="fas fa-sign-in-alt"></i> Login</button>
+            </div>
+        </form>
+        <hr />
+        <div class="text-center">
+            <p>Or login with:</p>
+            <a href="#" class="btn btn-danger btn-block btn-custom"><i class="fab fa-google"></i> Login with Google</a>
+        </div>
+    </div>
+</div>
+
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    <partial name="_ValidationScriptsPartial" />
 }
