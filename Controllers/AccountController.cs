@@ -48,7 +48,7 @@ namespace E_commerce.Controllers
                     if (found)
                     {
                         await _signInManager.SignInAsync(applicationUser, uservm.RememberMe);
-                        return Content("hiii");
+                        return RedirectToAction("GetAllCategory", "Category");
                     }
                 }
                 ModelState.AddModelError("", "Invalid username or password");
@@ -86,7 +86,7 @@ namespace E_commerce.Controllers
                     await _signInManager.SignInAsync(applicationUser, false);
 
 
-                    return RedirectToAction("RegisteredCustomers");
+                    return RedirectToAction("GetAllCategory","Category");
                 }
                 else
                 {

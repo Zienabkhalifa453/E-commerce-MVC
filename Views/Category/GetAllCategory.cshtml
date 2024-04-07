@@ -1,15 +1,11 @@
-﻿
-
-@{
-    ViewData["Title"] = "GetAllCategory";
+﻿@{
+    ViewData["Title"] = "Home";
 }
 
-<div>
-    @Html.Partial("_slider")
-</div>
+<partial name="_slider"></partial>
 
 
-<div class="popular-items pt-50">
+<div class="popular-items pt-50 mt-100">
     <div class="container-fluid">
         <div class="row">
             @foreach (var category in Model.categories)
@@ -58,9 +54,7 @@
                             </div>
                             <div class="popular-caption">
                                 <h3>
-                                    <a href="" onclick="event.preventDefault(); document.getElementById('productId').value = @product.Id; document.getElementById('productForm').submit();">
-                                        @product.Name
-                                    </a> @* link *@
+                                     <a href="">@product.Name</a>
                                 </h3>
                               
                                 <div class="rating mb-10">
@@ -77,14 +71,18 @@
             }
 
  </div>
-</div>
- </div>
-
- <div class="row justify-content-center">
+  <div class="row justify-content-center mb-5">
     <div class="room-btn">
-        <form action="/" method="post">
+        <form asp-action="GetAllProducts" asp-controller="product" >
             <button class="border-btn text-dark" type="submit">Browse More</button>
         </form>
     </div>
 </div>
+</div>
+ </div>
 
+
+
+<partial name="_AboutUs"></partial>
+<partial name="_FastFreeDelivery"></partial>
+<partial name="_footer"></partial>

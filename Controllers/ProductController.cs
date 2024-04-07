@@ -1,6 +1,7 @@
 ﻿using E_commerce.Models;
 using E_commerce_MVC.Repository;
 using E_commerce_MVC.viewModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,13 +11,71 @@ namespace E_commerce_MVC.Controllers
     {
         private readonly IProductRepository ProductRepository;
         private readonly ICategoryRepository CategoryRepository;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public ProductController(IProductRepository ProductRepository ,ICategoryRepository CategoryRepository)
+        public ProductController(IProductRepository ProductRepository, ICategoryRepository CategoryRepository, IWebHostEnvironment webHostEnvironment)
         {
             this.ProductRepository = ProductRepository;
             this.CategoryRepository = CategoryRepository;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
+
+        public IActionResult show()
+        {
+          List<Product> newproduct = ProductRepository.GetAll().ToList();
+         
+            return View(newproduct);
+        }
+
+      
+        public IActionResult addNewProduct()
+        {
+            newProductVM newProductVM = new newProductVM();
+            newProductVM.Category = CategoryRepository.GetAll().ToList();
+            return View(newProductVM);
+        }
+
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public IActionResult addNewProduct(newProductVM newProduct)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string UploadPath = Path.Combine(webHostEnvironment.WebRootPath, "img/gallery");
+                string imageName = Guid.NewGuid().ToString() + "-" + newProduct.Image_Url.FileName;
+                string filePath = Path.Combine(UploadPath, imageName);
+
+                using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    newProduct.Image_Url.CopyTo(fileStream);
+                }
+
+                Product product = new Product();
+                product.Name = newProduct.Name;
+                product.Image_Url = imageName;
+                product.Price = newProduct.Price;
+                product.Description = newProduct.Description;
+                product.Category_Id = newProduct.Category_Id;
+                product.Quantity=newProduct.Quantity;
+
+                ProductRepository.insert(product);
+                ProductRepository.save();
+
+
+                return RedirectToAction("show");
+            }
+
+            newProduct.Category = CategoryRepository.GetAll().ToList();
+            return View(newProduct);
+        }
+
+
+
+
+    
 
         public IActionResult Index()
         {

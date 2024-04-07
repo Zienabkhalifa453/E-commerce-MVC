@@ -6,24 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 namespace E_commerce_MVC.Controllers
 {
 
+    //[Route("Home")]
     public class CategoryController : Controller
     {
 
         private readonly IProductRepository ProductRepository;
         private readonly ICategoryRepository CategoryRepository;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public CategoryController(IProductRepository ProductRepository, ICategoryRepository CategoryRepository)
+        public CategoryController(IProductRepository ProductRepository, ICategoryRepository CategoryRepository,IWebHostEnvironment webHostEnvironment)
         {
             this.ProductRepository = ProductRepository;
             this.CategoryRepository = CategoryRepository;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
 
         public IActionResult Index()
         {
-            return View("MainPage");
+            return View();
         }
-
 
 
         public IActionResult GetAllCategory()
@@ -36,5 +38,42 @@ namespace E_commerce_MVC.Controllers
             return View("GetAllCategory", ListOfProductAndListOfCategory);
         }
 
+
+        public IActionResult addNewCategory()
+        {
+
+            return View();
+
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public IActionResult addNewCategory(NewcategoryVM newcategory)
+        {
+            if (ModelState.IsValid)
+            {
+                string UploadPath = Path.Combine(webHostEnvironment.WebRootPath, "img/gallery");
+                string imageName = Guid.NewGuid().ToString() + "-" + newcategory.imageURL.FileName;
+                string filePath = Path.Combine(UploadPath, imageName);
+
+                using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    newcategory.imageURL.CopyTo(fileStream);
+                }
+
+                Category category = new Category();
+                category.Name = newcategory.Name;
+                category.imageURL = imageName;
+
+                CategoryRepository.insert(category);
+                CategoryRepository.save();
+
+        
+                return RedirectToAction("GetAllCategory");
+            }
+
+       
+            return View(newcategory);
+        }
     }
 }
