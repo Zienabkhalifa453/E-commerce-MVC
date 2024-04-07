@@ -36,6 +36,12 @@
                         <input asp-for="email" placeholder="Your Email" />
                         <span asp-validation-for="email" class="text-danger"></span>
             </div>
+
+                    <div class="form-group">
+                        <label asp-for="emailConfirmation"><i class="zmdi zmdi-email"></i></label>
+                        <input asp-for="emailConfirmation" placeholder="repear Email" />
+                        <span asp-validation-for="email" class="text-danger"></span>
+                    </div>
                   
             <div class="form-group">
                         <label asp-for="address"><i class="fa-solid fa-location-dot"></i></label>
