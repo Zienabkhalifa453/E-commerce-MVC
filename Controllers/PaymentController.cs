@@ -22,13 +22,17 @@ namespace E_commerce_MVC.Controllers
 
         //for admin ya reem
         // [Authorize(Roles = "admin")]
-        public IActionResult Index()
+        public IActionResult Index(int page = 1, int pageSize = 2)
         {
 
             var payments = repository.GetAll();
             var users = userManager.Users.ToList();
             ViewData["Users"] = users;
-            return View(payments);
+            var paginatedShipments = payments.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            ViewData["CurrentPage"] = page;
+            ViewData["TotalPages"] = (payments.Count + pageSize - 1) / pageSize;
+
+            return View(paginatedShipments);
         }
         [HttpGet]
         // [Authorize]
