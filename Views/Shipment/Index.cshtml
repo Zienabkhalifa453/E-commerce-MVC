@@ -3,9 +3,24 @@
 @{
    
     var users = ViewData["Users"] as List<ApplicationUser>;
-   
+    var currentPage = (int)ViewData["CurrentPage"];
+    var totalPages = (int)ViewData["TotalPages"];
 
 }
+
+<style>
+    .page-item.active .page-link{
+        z-index: 1;
+        color: #fff;
+        background-color: #9F78FF;
+        border-color: #9F78FF;
+    }
+
+    .page-link{
+        color: #9F78FF;
+    }
+        
+</style>
 
 
 
@@ -46,4 +61,18 @@
             }
         </tbody>
     </table>
+</div>
+
+
+<div class="d-flex justify-content-center" >
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                <li class="page-item @(i == currentPage ? "active" : "")">
+                    <a style="padding:12px" class="page-link " href="@Url.Action("Index", "Shipment", new { page = i }) ">@i</a>
+                </li>
+            }
+        </ul>
+    </nav>
 </div>
