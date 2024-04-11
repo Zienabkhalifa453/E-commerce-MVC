@@ -1,68 +1,78 @@
-﻿@model RegisterVm
+@model RegisterVm
 
 @{
-    ViewData["Title"] = "register";
+    ViewData["Title"] = "Register";
 }
 
-<h1 class="text-center">Register</h1>
-<hr />
-<div class="row justify-content-center">
-    <div class="col-md-4">
-        <form asp-action="register">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<link rel="stylesheet" href="/FormRegisterLogin/fonts/material-icon/css/material-design-iconic-font.min.css">
+<link rel="stylesheet" href="/FormRegisterLogin/css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<section class="signup mt-80">
+    <div class="container">
+        <div class="signup-content">
+            <div class="signup-form">
+                <h2 class="form-title">Sign up</h2>
+                <form asp-action="Register" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="userName" class="control-label"></label>
-                <input asp-for="userName" class="form-control form-control-lg" style="height: 40px;" />
+                        <label asp-for="userName"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input asp-for="userName" placeholder="UserName" />
                 <span asp-validation-for="userName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="password" class="control-label"></label>
-                <input asp-for="password" class="form-control form-control-lg" style="height: 40px;" />
+                        <label asp-for="password" ><i class="zmdi zmdi-lock"></i></label>
+                        <input asp-for="password" placeholder="Passward" />
                 <span asp-validation-for="password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="confirmPassword" class="control-label"></label>
-                <input asp-for="confirmPassword" class="form-control form-control-lg" style="height: 40px;" />
+                        <label asp-for="confirmPassword"><i class="zmdi zmdi-lock"></i></label>
+                <input asp-for="confirmPassword"  placeholder="repeat your passward"/>
                 <span asp-validation-for="confirmPassword" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="email" class="control-label"></label>
-                <input asp-for="email" class="form-control form-control-lg" style="height: 40px;" />
-                <span asp-validation-for="email" class="text-danger"></span>
+                        <label asp-for="email" ><i class="zmdi zmdi-email"></i></label>
+                        <input asp-for="email" placeholder="Your Email" />
+                        <span asp-validation-for="email" class="text-danger"></span>
             </div>
+
+                    <div class="form-group">
+                        <label asp-for="emailConfirmation"><i class="zmdi zmdi-email"></i></label>
+                        <input asp-for="emailConfirmation" placeholder="repear Email" />
+                        <span asp-validation-for="email" class="text-danger"></span>
+                    </div>
+                  
             <div class="form-group">
-                <label asp-for="emailConfirmation" class="control-label"></label>
-                <input asp-for="emailConfirmation" class="form-control form-control-lg" style="height: 40px;" />
-                <span asp-validation-for="emailConfirmation" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="address" class="control-label"></label>
-                <input asp-for="address" class="form-control form-control-lg" style="height: 40px;" />
+                        <label asp-for="address"><i class="fa-solid fa-location-dot"></i></label>
+                <input asp-for="address" placeholder="Address" />
                 <span asp-validation-for="address" class="text-danger"></span>
             </div>
+                    
             <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block btn-custom mt-3"><i class="fas fa-user-plus"></i> Create</button>
-            </div>
+                        <button type="submit" class="btn btn-primary mt-3"><i class="fas fa-user-plus"></i> Create</button>
+                    </div>
         </form>
-        <hr />
-        <div class="text-center">
-            <p>Or register with:</p>
-            <a href="#" class="btn btn-primary btn btn-custom mt-2"><i class="fab fa-facebook-f"></i> </a>
-            <a href="#" class="btn btn-danger btn btn-custom mt-2"><i class="fab fa-google"></i> </a>
+                
+            </div>
+            <div class="signup-image">
+                <figure><img src="/FormRegisterLogin/images/about1.png" class="mt-105"></figure>
+                <a href="" class="signup-image-link">I am already member</a>
+                <div class="social-login">
+                    <span class="social-label">Or register with</span>
+                    <ul class="socials">
+                        <li><a href=#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                        <li><a href=""><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+
 
 
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    <partial name="_ValidationScriptsPartial" />
 }
 
-<style>
-    .btn-custom {
-        height: 35px;
-    }
-</style>

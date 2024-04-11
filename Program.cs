@@ -20,20 +20,18 @@ namespace E_commerce_MVC
             builder.Services.AddDbContext<Context>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
-         
+
             });
-          
-           
-
-           
 
 
 
+            builder.Services.AddScoped<IWishListRepository, WishListRepository>();
+            builder.Services.AddScoped<IRepository<ApplicationUser>, Repository<ApplicationUser>>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
-        builder.Services.AddScoped<IRepository<ApplicationUser>, Repository<ApplicationUser>>();
-
-        builder.Services.AddScoped<IProductRepository, ProductRepository>();
-        builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<IRepository<Shipment>, Repository<Shipment>>();
+            builder.Services.AddScoped<IRepository<Payment>, Repository<Payment>>();
 
 
 
@@ -51,12 +49,12 @@ namespace E_commerce_MVC
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
-
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=category}/{action=getallcategory}/{id?}");
 
             app.Run();
         }
